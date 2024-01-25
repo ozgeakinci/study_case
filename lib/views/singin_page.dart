@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:veripark_flutter_study_case/controllers/login_controller.dart';
 import 'package:veripark_flutter_study_case/views/home_page.dart';
 import 'package:veripark_flutter_study_case/widgets/custom_textfiels.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginController = ref.watch(loginControllerProvider);
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
 
-class _LoginPageState extends State<LoginPage> {
-  @override
-  Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    String _email = '';
-    String _password = '';
     return Scaffold(
       body: Stack(
         children: [
@@ -27,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: SingleChildScrollView(
                 child: Form(
-                  key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -36,14 +33,14 @@ class _LoginPageState extends State<LoginPage> {
                         height: 32,
                       ),
                       CustomTextField(
-                          onSaved: _email,
+                          controller: emailController,
                           hintText: "",
                           prefixIcon: Icons.person_2_rounded),
                       const SizedBox(
                         height: 8,
                       ),
                       CustomTextField(
-                        onSaved: _password,
+                        controller: passwordController,
                         hintText: "",
                         prefixIcon: Icons.lock,
                         obscureText: true,
@@ -65,11 +62,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                        onPressed: () async {
+                          await loginController.login(emailController.text,
+                              passwordController.text, context);
+                          print('buttona tıklandı');
                         },
                         child: const Text("Giriş Yap"),
                       ),

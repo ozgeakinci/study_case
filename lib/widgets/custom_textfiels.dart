@@ -5,7 +5,6 @@ class CustomTextField extends StatelessWidget {
   final IconData prefixIcon;
   final bool obscureText;
   final TextEditingController? controller;
-  String onSaved;
 
   CustomTextField({
     Key? key,
@@ -13,7 +12,6 @@ class CustomTextField extends StatelessWidget {
     required this.prefixIcon,
     this.obscureText = false,
     this.controller,
-    required this.onSaved,
   }) : super(key: key);
 
   @override
@@ -23,9 +21,6 @@ class CustomTextField extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
-          onSaved: (value) {
-            onSaved = value!;
-          },
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
