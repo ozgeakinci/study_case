@@ -29,7 +29,7 @@ class ApiSevices {
 
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body)['data'];
-      return List<Map<String, dynamic>>.from(responseData);
+      return responseData.map((e) => Participant.fromJson(e)).toList();
     } else {
       throw Exception(
           'Kullanıcıları getirme başarısız: ${response.statusCode}');

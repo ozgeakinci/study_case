@@ -18,10 +18,8 @@ class LoginPage extends ConsumerWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image:
-                        AssetImage('assets/images/login_page_background.png'))),
+                image:
+                    DecorationImage(fit: BoxFit.fill, image: AssetImage(''))),
             child: Center(
               child: SingleChildScrollView(
                 child: Form(
@@ -29,19 +27,25 @@ class LoginPage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      Image.asset(
+                        'assets/images/veripark_logo.png',
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        width: 250,
+                      ),
                       const SizedBox(
                         height: 32,
                       ),
                       CustomTextField(
                           controller: emailController,
-                          hintText: "",
+                          hintText: "Email",
                           prefixIcon: Icons.person_2_rounded),
                       const SizedBox(
                         height: 8,
                       ),
                       CustomTextField(
                         controller: passwordController,
-                        hintText: "",
+                        hintText: "Şifre",
                         prefixIcon: Icons.lock,
                         obscureText: true,
                       ),
@@ -61,7 +65,12 @@ class LoginPage extends ConsumerWidget {
                         height: 8,
                       ),
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            fixedSize: const Size(340, 56),
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white),
                         onPressed: () async {
                           await loginController.login(emailController.text,
                               passwordController.text, context);
